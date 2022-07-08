@@ -5,6 +5,7 @@ const initialState = {
   bodyParts: [],
   exercices: [],
   currentExercises: [],
+  selectedExercise: {},
 };
 
 const exerciseSlice = createSlice({
@@ -22,6 +23,9 @@ const exerciseSlice = createSlice({
     },
     setCurrentExercises(state, action) {
       state.currentExercises = action.payload;
+    },
+    setSelectedExercise(state, action) {
+      state.selectedExercise = action.payload;
     }
   },
 });
