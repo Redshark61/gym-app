@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Typography, Stack, Button } from '@mui/material'
 import BodyPartImage from '../assets/icons/body-part.png'
 import TargetImage from '../assets/icons/target.png'
 import EquipmentImage from '../assets/icons/equipment.png'
 
 const Detail = () => {
-  const { bodyPart, gifUrl, name, target, equipment } = useSelector(state => state.selectedExercise)
+  const dispatch = useDispatch()
+  let { bodyPart, gifUrl, name, target, equipment } = useSelector(state => state.selectedExercise)
 
   const extraDetail = [
     {
@@ -23,6 +24,7 @@ const Detail = () => {
     },
   ]
 
+
   return (
     <Stack gap='60px' sx={{ flexDirection: { lg: 'row' }, p: '20px', alignItems: 'center' }}>
       <img src={gifUrl} alt={name} loading="lazy" className='detail-image' />
@@ -32,7 +34,6 @@ const Detail = () => {
           Exercises keep your body in an athletic posture.{" "}
           {name} is one of the best exercises to target your {target}.
         </Typography>
-        <Typography>{name}</Typography>
         {extraDetail.map(({ icon, text }) => (
           <Stack key={text} direction="row" gap="24px" alignItems="center">
             <Button sx={{

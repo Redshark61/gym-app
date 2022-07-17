@@ -8,11 +8,12 @@ const ExerciseVideo = () => {
 
   const youtubeSearchURL = "https://youtube-search-and-download.p.rapidapi.com"
   const [videosDetails, setVideosDetails] = useState([])
-  console.log(videosDetails)
 
   useEffect(() => {
     (async () => {
       let { contents: exerciseVideoDetail } = await fetchData(`${youtubeSearchURL}/search?query=${exerciseName}`, youtubeOptions)
+      // filter exerciseVideoDetail to get only elements with key 'video' (remove playlists)
+      exerciseVideoDetail = exerciseVideoDetail.filter(video => video.video)
       // sort the videos by the number of views, in order to get the 3 most viewed videos
       exerciseVideoDetail.sort((a, b) => {
         const bViews = parseInt(b.video.viewCountText.replaceAll(',', ''))
@@ -21,7 +22,6 @@ const ExerciseVideo = () => {
       })
 
       setVideosDetails(exerciseVideoDetail)
-      console.log("fetching data")
     })()
   }, [youtubeSearchURL, exerciseName])
 

@@ -23,6 +23,7 @@ const Exercices = () => {
 				const URL = "https://exercisedb.p.rapidapi.com/exercises";
 				exercisesData = await fetchData(URL, exercisesOptions);
 				dispatch(exerciseAction.setExercices(exercisesData));
+				console.log("exercises set")
 			} else {
 				exercisesData = exercises;
 			}

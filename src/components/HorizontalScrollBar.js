@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import BodyPart from "./BodyPart";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-
+import ExerciseCard from "./ExerciseCard";
 import RightArrowIcon from "../assets/icons/right-arrow.png";
 import LeftArrowIcon from "../assets/icons/left-arrow.png";
 import { useSelector } from "react-redux";
@@ -26,8 +26,8 @@ const RightArrow = () => {
 	);
 };
 
-const HorizontalScrollBar = () => {
-	const data = useSelector(state => state.bodyParts);
+const HorizontalScrollBar = ({ data, component }) => {
+	console.log(data);
 
 	return (
 		<ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
@@ -38,9 +38,7 @@ const HorizontalScrollBar = () => {
 					title={item.id || item}
 					m="0 40px"
 				>
-					<BodyPart>
-						{item}
-					</BodyPart>
+					{component({ children: item })}
 				</Box>
 			))}
 		</ScrollMenu>

@@ -4,18 +4,21 @@ import { fetchData, exercisesOptions } from "../utils/fetchData";
 import HorizontalScrollBar from "./HorizontalScrollBar";
 import { useSelector, useDispatch } from "react-redux";
 import { exerciseAction } from "../store";
+import BodyPart from "./BodyPart";
 
 
 const Exercices = () => {
 	const dispatch = useDispatch();
 	const exercises = useSelector(state => state.exercices);
 	const [search, setSearch] = useState("");
+	const [bodyParts, setBodyParts] = useState([]);
 
 	useEffect(() => {
 		const fetchBodyParts = async () => {
 			const URL = "https://exercisedb.p.rapidapi.com/exercises/bodyPartList";
 			const data = await fetchData(URL, exercisesOptions);
 			dispatch(exerciseAction.setBodyParts(data));
+			setBodyParts(data);
 		};
 
 		fetchBodyParts();
@@ -91,7 +94,7 @@ const Exercices = () => {
 				</Button>
 			</Box>
 			<Box sx={{ position: "relative", width: "100%", p: "20px" }}>
-				<HorizontalScrollBar />
+				<HorizontalScrollBar data={bodyParts} component={BodyPart} />
 			</Box>
 		</Stack>
 	);
