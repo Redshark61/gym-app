@@ -5,6 +5,8 @@ import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 
 import RightArrowIcon from "../assets/icons/right-arrow.png";
 import LeftArrowIcon from "../assets/icons/left-arrow.png";
+import { useSelector } from "react-redux";
+
 
 const LeftArrow = () => {
 	const { scrollPrev } = useContext(VisibilityContext);
@@ -24,7 +26,9 @@ const RightArrow = () => {
 	);
 };
 
-const HorizontalScrollBar = ({ data, bodyPart, setBodyPart }) => {
+const HorizontalScrollBar = () => {
+	const data = useSelector(state => state.bodyParts);
+
 	return (
 		<ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
 			{data.map((item) => (
@@ -34,7 +38,7 @@ const HorizontalScrollBar = ({ data, bodyPart, setBodyPart }) => {
 					title={item.id || item}
 					m="0 40px"
 				>
-					<BodyPart bodyPart={bodyPart} setBodyPart={setBodyPart}>
+					<BodyPart>
 						{item}
 					</BodyPart>
 				</Box>
