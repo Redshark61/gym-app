@@ -1,10 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Stack, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { exerciseAction } from "../store";
 
 const ExerciseCard = ({ children: exercise }) => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const navigateHandler = (e) => {
+		e.preventDefault();
+		dispatch(exerciseAction.setSelectedExercise(exercise));
+		navigate(`/exercise/${exercise.id}`);
+	}
+
 	return (
-		<Link className="exercise-card" to={`/exercise/${exercise.id}`}>
+		<a className="exercise-card" href={`/exercise/${exercise.id}`} onClick={navigateHandler}>
 			<img src={exercise.gifUrl} alt={exercise.name} loading="lazy" />
 			<Stack direction="row">
 				<Button
@@ -43,7 +54,7 @@ const ExerciseCard = ({ children: exercise }) => {
 			>
 				{exercise.name}
 			</Typography>
-		</Link>
+		</a>
 	);
 };
 

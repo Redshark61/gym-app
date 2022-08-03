@@ -1,8 +1,13 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
 import Icon from "../assets/icons/gym.png";
+import { useSelector, useDispatch } from "react-redux";
+import { exerciseAction } from "../store";
 
-const BodyPart = ({ children: item, bodyPart, setBodyPart }) => {
+const BodyPart = ({ children: item }) => {
+	const dispatch = useDispatch();
+	const bodyPart = useSelector(state => state.bodyPart);
+
 	return (
 		<Stack
 			type="button"
@@ -19,7 +24,8 @@ const BodyPart = ({ children: item, bodyPart, setBodyPart }) => {
 				borderTop: bodyPart === item ? "2px solid #ff2625" : "none",
 			}}
 			onClick={() => {
-				setBodyPart(item);
+				dispatch(exerciseAction.setBodyPart(item));
+				// setBodyPart(item);
 				window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
 			}}
 		>
