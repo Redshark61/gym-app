@@ -2,15 +2,19 @@ import React from "react";
 import { Stack, Typography } from "@mui/material";
 import Icon from "../assets/icons/gym.png";
 import { useSelector, useDispatch } from "react-redux";
-import { exerciseAction } from "../store";
+import { exerciseAction, RootState } from "../store";
 
-const BodyPart = ({ children: item }) => {
+interface Props {
+	children: string;
+}
+
+const BodyPart = ({ children: item }: Props) => {
 	const dispatch = useDispatch();
-	const bodyPart = useSelector(state => state.bodyPart);
+	const bodyPart = useSelector<RootState>((state) => state.bodyPart);
 
 	return (
 		<Stack
-			type="button"
+			component="button"
 			alignItems="center"
 			justifyContent="center"
 			className="bodyPart-card"
@@ -21,11 +25,11 @@ const BodyPart = ({ children: item }) => {
 				height: "180px",
 				cursor: "pointer",
 				gap: "47px",
+				border: "none",
 				borderTop: bodyPart === item ? "2px solid #ff2625" : "none",
 			}}
 			onClick={() => {
 				dispatch(exerciseAction.setBodyPart(item));
-				// setBodyPart(item);
 				window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
 			}}
 		>

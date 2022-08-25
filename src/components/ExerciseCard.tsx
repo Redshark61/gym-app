@@ -1,18 +1,28 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Stack, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { exerciseAction } from "../store";
+import { AppDispatch, exerciseAction } from "../store";
+import { Exercise } from "../../@types";
 
-const ExerciseCard = ({ children: exercise }) => {
-	const dispatch = useDispatch();
+interface Props {
+	exercise: Exercise;
+	children?: Exercise;
+}
+
+const ExerciseCard = ({ exercise, children }: Props) => {
+	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
 
-	const navigateHandler = (e) => {
+	if (children) {
+		exercise = children;
+	}
+
+	const navigateHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault();
 		dispatch(exerciseAction.setSelectedExercise(exercise));
 		navigate(`/exercise/${exercise.id}`);
-	}
+	};
 
 	return (
 		<a className="exercise-card" href={`/exercise/${exercise.id}`} onClick={navigateHandler}>

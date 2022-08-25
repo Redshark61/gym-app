@@ -3,20 +3,20 @@ import { Box, Stack, TextField, Typography, Button } from "@mui/material";
 import { fetchData, exercisesOptions } from "../utils/fetchData";
 import HorizontalScrollBar from "./HorizontalScrollBar";
 import { useSelector, useDispatch } from "react-redux";
-import { exerciseAction } from "../store";
+import { AppDispatch, exerciseAction, RootState } from "../store";
 import BodyPart from "./BodyPart";
-
+import { Exercise } from "../../@types";
 
 const Exercices = () => {
-	const dispatch = useDispatch();
-	const exercises = useSelector(state => state.exercices);
+	const dispatch = useDispatch<AppDispatch>();
+	const exercises = useSelector<RootState, Exercise[]>((state) => state.exercices);
 	const [search, setSearch] = useState("");
-	const [bodyParts, setBodyParts] = useState([]);
+	const [bodyParts, setBodyParts] = useState<string[]>([]);
 
 	useEffect(() => {
 		const fetchBodyParts = async () => {
 			const URL = "https://exercisedb.p.rapidapi.com/exercises/bodyPartList";
-			const data = await fetchData(URL, exercisesOptions);
+			const data = await fetchData<string[]>(URL, exercisesOptions);
 			dispatch(exerciseAction.setBodyParts(data));
 			setBodyParts(data);
 		};
@@ -26,11 +26,11 @@ const Exercices = () => {
 
 	const handleSearch = async () => {
 		if (search) {
-			let exercisesData;
+			let exercisesData: Exercise[];
 			if (exercises.length === 0) {
 				console.log("fetching data");
 				const URL = "https://exercisedb.p.rapidapi.com/exercises";
-				exercisesData = await fetchData(URL, exercisesOptions);
+				exercisesData = await fetchData<Exercise[]>(URL, exercisesOptions);
 			} else {
 				console.log("using cached data");
 				exercisesData = exercises;
@@ -67,8 +67,8 @@ const Exercices = () => {
 						width: { lg: "1000px", xs: "350px" },
 						backgroundColor: "white",
 						borderRadius: "40px",
+						height: "76px",
 					}}
-					height="76px"
 					value={search}
 					onChange={(e) => {
 						setSearch(e.target.value.toLowerCase());

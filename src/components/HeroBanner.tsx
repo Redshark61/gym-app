@@ -1,15 +1,16 @@
 import React from "react";
-import { Box, Stack, Typography, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import HeroBannerImage from "../assets/images/banner.png";
 
 const HeroBanner = () => {
 	return (
 		<Box
+			component="div"
 			sx={{
 				marginTop: { lg: "212px", xs: "70px" },
 				marginLeft: { sm: "50px" },
 			}}
-			postion="relative"
+			position="relative"
 			p="20px"
 		>
 			<Typography color="#ff2625" fontWeight={"600"} fontSize={"26px"}>
