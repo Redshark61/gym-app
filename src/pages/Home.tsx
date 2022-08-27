@@ -5,11 +5,17 @@ import SearchExercices from "../components/SearchExercices";
 import Exercices from "../components/Exercices";
 
 const Home = () => {
+	const [toFirstPage, setToFirstPage] = React.useState(false);
+
+	const onSetToFirstPage = (value: boolean) => {
+		setToFirstPage(value);
+	};
+
 	return (
 		<Box>
 			<HeroBanner />
-			<SearchExercices />
-			<Exercices />
+			<SearchExercices onSetToFirstPage={onSetToFirstPage} />
+			<Exercices setToFirstPage={toFirstPage} onSetToFirstPage={onSetToFirstPage} />
 		</Box>
 	);
 };
