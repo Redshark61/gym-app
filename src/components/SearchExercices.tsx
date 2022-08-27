@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Box, Stack, TextField, Typography, Button } from "@mui/material";
 import { fetchData, exercisesOptions } from "../utils/fetchData";
 import HorizontalScrollBar from "./HorizontalScrollBar";
@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, exerciseAction, RootState } from "../store";
 import BodyPart from "./BodyPart";
 import { Exercise } from "../../@types";
+import computeSearch from "../utils/computeSearch";
 
 const Exercices = () => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -24,26 +25,23 @@ const Exercices = () => {
 		fetchBodyParts();
 	}, [dispatch]);
 
-	const handleSearch = async () => {
+	const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
 		if (search) {
 			let exercisesData: Exercise[];
+
 			if (exercises.length === 0) {
 				console.log("fetching data");
 				const URL = "https://exercisedb.p.rapidapi.com/exercises";
 				exercisesData = await fetchData<Exercise[]>(URL, exercisesOptions);
+				dispatch(exerciseAction.setExercices(exercisesData));
 			} else {
 				console.log("using cached data");
 				exercisesData = exercises;
 			}
 
-			const searchedExercices = exercisesData.filter(
-				(exercise) =>
-					exercise.name.toLowerCase().includes(search.toLowerCase()) ||
-					exercise.target.toLowerCase().includes(search.toLowerCase()) ||
-					exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
-					exercise.bodyPart.toLowerCase().includes(search.toLowerCase())
-			);
-			console.log(searchedExercices);
+			const searchedExercices = computeSearch(search, exercisesData);
 
 			dispatch(exerciseAction.setCurrentExercises(searchedExercices));
 			setSearch("");
@@ -60,7 +58,7 @@ const Exercices = () => {
 			>
 				Awesome exercises you <br /> should know
 			</Typography>
-			<Box position="relative" mb="72px">
+			<Box component="form" position="relative" mb="72px" onSubmit={handleSearch}>
 				<TextField
 					sx={{
 						input: { fontWeight: "700", border: "none", borderRadius: "4px" },
@@ -77,6 +75,7 @@ const Exercices = () => {
 					type="text"
 				/>
 				<Button
+					type="submit"
 					className="search-btn"
 					sx={{
 						backgroundColor: "#ff2625",
@@ -88,7 +87,6 @@ const Exercices = () => {
 						position: "absolute",
 						right: "0",
 					}}
-					onClick={handleSearch}
 				>
 					Search
 				</Button>

@@ -105,6 +105,6 @@
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */
 	},
 
-	"include": ["components/**/*", "**/*.ts", "**/*.tsx"],
+	"include": ["components/**/*", "**/*.ts", "**/*.tsx", "hooks/**/*"],
 	"exclude": ["node_modules", "build"]
 }
