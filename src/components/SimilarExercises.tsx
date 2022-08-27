@@ -16,10 +16,7 @@ const SimilarExercises = () => {
 	useEffect(() => {
 		const { target, equipment } = selectedExercise;
 		const similarTarget = allExercises.filter((exercise) => exercise.target === target);
-		console.log(
-			"🚀 ~ file: SimilarExercises.tsx ~ line 19 ~ useEffect ~ similarTarget",
-			similarTarget
-		);
+
 		const similarEquipment = allExercises.filter(
 			(exercise) => exercise.equipment === equipment
 		);

@@ -8,7 +8,11 @@ import BodyPart from "./BodyPart";
 import { Exercise } from "../../@types";
 import computeSearch from "../utils/computeSearch";
 
-const Exercices = () => {
+interface Props {
+	onSetToFirstPage: (value: boolean) => void;
+}
+
+const Exercices = ({ onSetToFirstPage }: Props) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const exercises = useSelector<RootState, Exercise[]>((state) => state.exercices);
 	const [search, setSearch] = useState("");
@@ -32,12 +36,10 @@ const Exercices = () => {
 			let exercisesData: Exercise[];
 
 			if (exercises.length === 0) {
-				console.log("fetching data");
 				const URL = "https://exercisedb.p.rapidapi.com/exercises";
 				exercisesData = await fetchData<Exercise[]>(URL, exercisesOptions);
 				dispatch(exerciseAction.setExercices(exercisesData));
 			} else {
-				console.log("using cached data");
 				exercisesData = exercises;
 			}
 
@@ -45,6 +47,7 @@ const Exercices = () => {
 
 			dispatch(exerciseAction.setCurrentExercises(searchedExercices));
 			setSearch("");
+			onSetToFirstPage(true);
 		}
 	};
 

@@ -19,7 +19,6 @@ const RightArrow = () => {
 	return (
 		<Typography
 			onClick={() => {
-				console.log("click");
 				scrollNext();
 			}}
 			className="left-arrow"

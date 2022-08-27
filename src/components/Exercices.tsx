@@ -5,17 +5,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { exerciseAction, RootState } from "../store";
 import { exercisesOptions, fetchData } from "../utils/fetchData";
 import { Exercise } from "../../@types";
+import { on } from "process";
 
-const Exercices = () => {
+interface Props {
+	setToFirstPage?: boolean;
+	onSetToFirstPage: (value: boolean) => void;
+}
+
+const Exercices = ({ setToFirstPage = false, onSetToFirstPage }: Props) => {
 	const dispatch = useDispatch();
 	const exercises = useSelector<RootState, Exercise[]>((state) => state.exercices);
 	let selectedExercises = useSelector<RootState, Exercise[]>((state) => state.currentExercises);
 	const bodyPart = useSelector<RootState, string>((state) => state.bodyPart);
 	const [currentPage, setCurrentPage] = useState(1);
+
 	const resultsRef = useRef<HTMLDivElement>(null);
 	const exercisesPerPage = 9;
 	const indexOfLastExercise = currentPage * exercisesPerPage;
 	const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
+
+	useEffect(() => {
+		if (setToFirstPage) {
+			setCurrentPage(1);
+			onSetToFirstPage(false);
+		}
+	}, [setToFirstPage, onSetToFirstPage]);
 
 	useEffect(() => {
 		(async () => {
@@ -24,7 +38,6 @@ const Exercices = () => {
 				const URL = "https://exercisedb.p.rapidapi.com/exercises";
 				exercisesData = await fetchData(URL, exercisesOptions);
 				dispatch(exerciseAction.setExercices(exercisesData));
-				console.log("exercises set");
 			} else {
 				exercisesData = exercises;
 			}
@@ -33,7 +46,6 @@ const Exercices = () => {
 				let selectedExercises = exercisesData.filter(
 					(exercise) => exercise.bodyPart === bodyPart
 				);
-
 				dispatch(exerciseAction.setCurrentExercises(selectedExercises));
 			} else {
 				dispatch(exerciseAction.setCurrentExercises(exercisesData));
