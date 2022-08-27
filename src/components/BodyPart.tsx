@@ -10,7 +10,7 @@ interface Props {
 
 const BodyPart = ({ children: item }: Props) => {
 	const dispatch = useDispatch();
-	const bodyPart = useSelector<RootState>((state) => state.bodyPart);
+	const bodyPart = useSelector<RootState>((state) => state.exercises.bodyPart);
 
 	return (
 		<Stack

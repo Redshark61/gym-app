@@ -13,10 +13,12 @@ interface Props {
 
 const Exercices = ({ setToFirstPage = false, onSetToFirstPage }: Props) => {
 	const dispatch = useDispatch();
-	const exercises = useSelector<RootState, Exercise[]>((state) => state.exercices);
-	let selectedExercises = useSelector<RootState, Exercise[]>((state) => state.currentExercises);
-	const search = useSelector<RootState, string>((state) => state.search);
-	const bodyPart = useSelector<RootState, string>((state) => state.bodyPart);
+	const exercises = useSelector<RootState, Exercise[]>((state) => state.exercises.exercices);
+	let selectedExercises = useSelector<RootState, Exercise[]>(
+		(state) => state.exercises.currentExercises
+	);
+	const search = useSelector<RootState, string>((state) => state.exercises.search);
+	const bodyPart = useSelector<RootState, string>((state) => state.exercises.bodyPart);
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const resultsRef = useRef<HTMLDivElement>(null);

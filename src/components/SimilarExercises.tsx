@@ -8,8 +8,10 @@ import { RootState } from "../store";
 import { Exercise } from "../../@types";
 
 const SimilarExercises = () => {
-	const selectedExercise = useSelector<RootState, Exercise>((state) => state.selectedExercise);
-	const allExercises = useSelector<RootState, Exercise[]>((state) => state.exercices);
+	const selectedExercise = useSelector<RootState, Exercise>(
+		(state) => state.exercises.selectedExercise
+	);
+	const allExercises = useSelector<RootState, Exercise[]>((state) => state.exercises.exercices);
 	const [similarTarget, setSimilarTarget] = useState<Exercise[]>([]);
 	const [similarEquipment, setSimilarEquipment] = useState<Exercise[]>([]);
 

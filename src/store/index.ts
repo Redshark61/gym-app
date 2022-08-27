@@ -1,42 +1,10 @@
-import { createSlice, configureStore } from "@reduxjs/toolkit";
-import type { Exercise, InitialState } from "../../@types";
-
-const initialState: InitialState = {
-  bodyPart: "all",
-  bodyParts: [],
-  exercices: [],
-  currentExercises: [],
-  selectedExercise: {} as Exercise,
-  search: "",
-};
-
-const exerciseSlice = createSlice({
-  name: "counter",
-  initialState,
-  reducers: {
-    setBodyParts(state, action: { payload: string[] }) {
-      state.bodyParts = ["all", ...action.payload];
-    },
-    setExercices(state, action: { payload: Exercise[] }) {
-      state.exercices = action.payload;
-    },
-    setBodyPart(state, action: { payload: string }) {
-      state.bodyPart = action.payload;
-    },
-    setCurrentExercises(state, action: { payload: Exercise[] }) {
-      state.currentExercises = action.payload;
-    },
-    setSelectedExercise(state, action: { payload: Exercise }) {
-      state.selectedExercise = action.payload;
-    },
-    setSearch(state, action: { payload: string }) {
-      state.search = action.payload;
-    }
-  },
-});
+import { configureStore } from "@reduxjs/toolkit";
+import { exerciseSlice } from "../reducers/exercises";
 
 const store = configureStore({
-  reducer: exerciseSlice.reducer,
+  reducer: {
+    exercises: exerciseSlice.reducer,
+  }
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ExerciseDetail from "./pages/ExerciseDetail";
+import MyWorkout from "./pages/MyWorkout";
+import NewWorkout from "./pages/NewWorkout";
 
 function App() {
 	return (
@@ -14,6 +16,8 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="exercise/:id" element={<ExerciseDetail />} />
+					<Route path="my-workout" element={<MyWorkout />} />
+					<Route path="my-workout/new" element={<NewWorkout />} />
 				</Routes>
 				<Footer />
 			</Box>
