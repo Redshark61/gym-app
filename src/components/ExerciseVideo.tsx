@@ -4,8 +4,10 @@ import { youtubeOptions, fetchData } from "../utils/fetchData";
 import { Box, Typography, Stack } from "@mui/material";
 import { RootState } from "../store";
 import { Exercise, Video, VideosContent } from "../../@types";
+import Loader from "./Loader";
 
 const ExerciseVideo = () => {
+	const [isLoading, setIsLoading] = useState(true);
 	const { name: exerciseName } = useSelector<RootState, Exercise>(
 		(state) => state.selectedExercise
 	);
@@ -29,8 +31,13 @@ const ExerciseVideo = () => {
 			});
 
 			setVideosDetails(exerciseVideoDetail);
+			setIsLoading(false);
 		})();
 	}, [youtubeSearchURL, exerciseName]);
+
+	if (isLoading) {
+		return <Loader />;
+	}
 
 	return (
 		<Box
@@ -40,7 +47,6 @@ const ExerciseVideo = () => {
 			p="20px"
 		>
 			<Typography variant="h4" mb="33px">
-				{" "}
 				Watch{" "}
 				<span style={{ color: "#ff2526", textTransform: "capitalize" }}>
 					{exerciseName}
