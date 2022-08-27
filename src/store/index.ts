@@ -7,6 +7,7 @@ const initialState: InitialState = {
   exercices: [],
   currentExercises: [],
   selectedExercise: {} as Exercise,
+  search: "",
 };
 
 const exerciseSlice = createSlice({
@@ -27,6 +28,9 @@ const exerciseSlice = createSlice({
     },
     setSelectedExercise(state, action: { payload: Exercise }) {
       state.selectedExercise = action.payload;
+    },
+    setSearch(state, action: { payload: string }) {
+      state.search = action.payload;
     }
   },
 });

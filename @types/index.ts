@@ -13,6 +13,7 @@ export type InitialState = {
   exercices: Exercise[];
   currentExercises: Exercise[];
   selectedExercise: Exercise;
+  search: string;
 }
 
 export type Thumbnail = {

@@ -46,6 +46,7 @@ const Exercices = ({ onSetToFirstPage }: Props) => {
 			const searchedExercices = computeSearch(search, exercisesData);
 
 			dispatch(exerciseAction.setCurrentExercises(searchedExercices));
+			dispatch(exerciseAction.setSearch(search));
 			setSearch("");
 			onSetToFirstPage(true);
 		}
