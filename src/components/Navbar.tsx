@@ -33,6 +33,27 @@ const Navbar = () => {
 				>
 					Home
 				</NavLink>
+				<NavLink
+					end
+					to="/my-workout"
+					style={({ isActive }) => ({
+						textDecoration: "none",
+						borderBottom: isActive ? "2px solid #ff2526" : "none",
+						color: "#3a1212",
+					})}
+				>
+					My Workout
+				</NavLink>
+				<NavLink
+					to="/my-workout/new"
+					style={({ isActive }) => ({
+						textDecoration: "none",
+						borderBottom: isActive ? "2px solid #ff2526" : "none",
+						color: "#3a1212",
+					})}
+				>
+					New Workout
+				</NavLink>
 				<a href="#exercises" style={{ textDecoration: "none", color: "#3a1212" }}>
 					Exercices
 				</a>

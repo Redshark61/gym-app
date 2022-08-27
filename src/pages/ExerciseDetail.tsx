@@ -12,7 +12,7 @@ import { Exercise } from "../../@types";
 const ExerciseDetail = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch<AppDispatch>();
-	const allExercises = useSelector<RootState, Exercise[]>((state) => state.exercices);
+	const allExercises = useSelector<RootState, Exercise[]>((state) => state.exercises.exercices);
 	const exerciseLength = allExercises.length;
 
 	useEffect(() => {

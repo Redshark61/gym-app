@@ -14,7 +14,7 @@ interface Props {
 
 const Exercices = ({ onSetToFirstPage }: Props) => {
 	const dispatch = useDispatch<AppDispatch>();
-	const exercises = useSelector<RootState, Exercise[]>((state) => state.exercices);
+	const exercises = useSelector<RootState, Exercise[]>((state) => state.exercises.exercices);
 	const [search, setSearch] = useState("");
 	const [bodyParts, setBodyParts] = useState<string[]>([]);
 

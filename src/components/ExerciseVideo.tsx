@@ -9,7 +9,7 @@ import Loader from "./Loader";
 const ExerciseVideo = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const { name: exerciseName } = useSelector<RootState, Exercise>(
-		(state) => state.selectedExercise
+		(state) => state.exercises.selectedExercise
 	);
 
 	const youtubeSearchURL = "https://youtube-search-and-download.p.rapidapi.com";

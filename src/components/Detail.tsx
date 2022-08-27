@@ -9,7 +9,7 @@ import { Exercise } from "../../@types";
 
 const Detail = () => {
 	let { bodyPart, gifUrl, name, target, equipment } = useSelector<RootState, Exercise>(
-		(state) => state.selectedExercise
+		(state) => state.exercises.selectedExercise
 	);
 
 	const extraDetail = [
