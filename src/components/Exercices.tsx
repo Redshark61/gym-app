@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { exerciseAction, RootState } from "../store";
 import { exercisesOptions, fetchData } from "../utils/fetchData";
 import { Exercise } from "../../@types";
-import { on } from "process";
 
 interface Props {
 	setToFirstPage?: boolean;
@@ -16,6 +15,7 @@ const Exercices = ({ setToFirstPage = false, onSetToFirstPage }: Props) => {
 	const dispatch = useDispatch();
 	const exercises = useSelector<RootState, Exercise[]>((state) => state.exercices);
 	let selectedExercises = useSelector<RootState, Exercise[]>((state) => state.currentExercises);
+	const search = useSelector<RootState, string>((state) => state.search);
 	const bodyPart = useSelector<RootState, string>((state) => state.bodyPart);
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -65,7 +65,7 @@ const Exercices = ({ setToFirstPage = false, onSetToFirstPage }: Props) => {
 	return (
 		<Box id="exercises" sx={{ mt: { lg: "110px" } }} mt="50px" p="20px" ref={resultsRef}>
 			<Typography variant="h4" mb="46px">
-				Showing results
+				Showing results {search ? "for: " + search : ""}
 			</Typography>
 			<Stack
 				direction="row"
