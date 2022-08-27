@@ -1,7 +1,7 @@
 import { Exercise } from ".";
 
 
-export type InitialState = {
+export type ExerciseState = {
   bodyPart: string;
   bodyParts: string[];
   exercices: Exercise[];

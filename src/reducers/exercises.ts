@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Exercise, InitialState } from "../../@types";
+import { Exercise, ExerciseState, } from "../../@types";
 
 
-const initialState: InitialState = {
+const initialState: ExerciseState = {
   bodyPart: "all",
   bodyParts: [],
   exercices: [],
@@ -12,7 +12,7 @@ const initialState: InitialState = {
 };
 
 export const exerciseSlice = createSlice({
-  name: "counter",
+  name: "exercise",
   initialState,
   reducers: {
     setBodyParts(state, action: { payload: string[] }) {
