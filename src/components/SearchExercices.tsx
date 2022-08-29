@@ -68,8 +68,6 @@ const Exercices = ({ onSetToFirstPage }: Props) => {
 						input: { fontWeight: "700", border: "none", borderRadius: "4px" },
 						width: { lg: "1000px", xs: "350px" },
 						backgroundColor: "white",
-						borderRadius: "40px",
-						height: "76px",
 					}}
 					value={search}
 					onChange={(e) => {
