@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Workouts, WorkoutState } from "../../@types";
+import { Workouts, Workout, WorkoutState } from "../../@types";
 
 
 const initialState: WorkoutState = {
@@ -16,6 +16,9 @@ export const workoutSlice = createSlice({
     },
     newCurrentWorkout: (state, action: { payload: Workouts }) => {
       state.currentWorkout = action.payload;
+    },
+    addAnotherWorkout: (state, action: { payload: Workout }) => {
+      state.currentWorkout.workouts.push(action.payload);
     }
   },
 });

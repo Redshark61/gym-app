@@ -1,9 +1,11 @@
-import React, { FormEvent, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { FormEvent, MouseEvent, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Workouts } from "../../@types";
 import Exercises from "../components/Exercices";
 import SearchExercises from "../components/SearchExercices";
-import { AppDispatch, workoutAction } from "../store";
+import { AppDispatch, RootState, workoutAction } from "../store";
+
+// TODO: edit the reps number, sets number, as well as all the timing. Might be possible with a popup.
 
 const NewWorkout = () => {
 	const [isCreating, setIsCreating] = useState(false);
@@ -11,9 +13,17 @@ const NewWorkout = () => {
 	const nameRef = React.useRef<HTMLInputElement>(null);
 	const restTimeRef = React.useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch<AppDispatch>();
+	const currentWorkout = useSelector<RootState, Workouts>(
+		(state) => state.workouts.currentWorkout
+	);
 
 	const onSetToFirstPage = (value: boolean) => {
 		setToFirstPage(value);
+	};
+
+	const handleSave = (e: MouseEvent) => {
+		e.preventDefault();
+		dispatch(workoutAction.addWorkout(currentWorkout));
 	};
 
 	const sumbitHandler = (e: FormEvent<HTMLFormElement>) => {
@@ -34,7 +44,7 @@ const NewWorkout = () => {
 
 	return (
 		<>
-			<h1>NewWorkout</h1>
+			<h1>New Workout</h1>
 			<form action="" onSubmit={sumbitHandler}>
 				<input type="text" placeholder="Workout Name" ref={nameRef} />
 				<input
@@ -47,6 +57,7 @@ const NewWorkout = () => {
 
 			{isCreating && (
 				<>
+					<button onClick={handleSave}>Save the workout</button>
 					<SearchExercises onSetToFirstPage={onSetToFirstPage} />
 					<Exercises
 						isAdding

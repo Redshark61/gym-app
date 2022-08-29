@@ -3,7 +3,6 @@ export type Workout = {
   nbReps: number;
   nbSets: number;
   rest: number;
-  weight?: number;
 }
 
 export type Workouts = {

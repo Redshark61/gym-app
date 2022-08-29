@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 
-export function AddingBadge() {
-	const [isAdded, setIsAdded] = useState(false);
+interface Props {
+	isAdded: boolean;
+}
 
-	const clickHandler = () => {
-		setIsAdded(!isAdded);
-	};
-
-	return (
-		<div className={styles.badge} onClick={clickHandler}>
-			{!isAdded ? "➕" : "✅"}
-		</div>
-	);
+export function AddingBadge({ isAdded }: Props) {
+	return <div className={styles.badge}>{!isAdded ? "➕" : "✅"}</div>;
 }

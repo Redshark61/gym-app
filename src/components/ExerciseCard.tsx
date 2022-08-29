@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Stack, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { AppDispatch, exerciseAction } from "../store";
-import { Exercise } from "../../@types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, exerciseAction, RootState, workoutAction } from "../store";
+import { Exercise, Workout, Workouts } from "../../@types";
 import { AddingBadge } from "./AddingBadge";
 
 interface Props {
@@ -16,6 +16,9 @@ const ExerciseCard = ({ isAdding = false, exercise, children }: Props) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
 	const [isAdded, setIsAdded] = useState(false);
+	const currentWorkout = useSelector<RootState, Workouts>(
+		(state) => state.workouts.currentWorkout
+	);
 
 	if (children) {
 		exercise = children;
@@ -23,9 +26,18 @@ const ExerciseCard = ({ isAdding = false, exercise, children }: Props) => {
 
 	const navigateHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault();
-		dispatch(exerciseAction.setSelectedExercise(exercise));
 		if (!isAdding) {
 			navigate(`/exercise/${exercise.id}`);
+			dispatch(exerciseAction.setSelectedExercise(exercise));
+		} else {
+			setIsAdded((prev) => !prev);
+			const workout: Workout = {
+				exerciseID: exercise.id,
+				nbReps: 1,
+				nbSets: 1,
+				rest: 20,
+			};
+			dispatch(workoutAction.addAnotherWorkout(workout));
 		}
 	};
 
@@ -35,7 +47,7 @@ const ExerciseCard = ({ isAdding = false, exercise, children }: Props) => {
 			href={`/exercise/${exercise.id}`}
 			onClick={navigateHandler}
 		>
-			<AddingBadge />
+			<AddingBadge isAdded={isAdded} />
 			<img src={exercise.gifUrl} alt={exercise.name} loading="lazy" />
 			<Stack direction="row">
 				<Button
