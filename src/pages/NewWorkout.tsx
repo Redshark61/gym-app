@@ -5,8 +5,6 @@ import Exercises from "../components/Exercices";
 import SearchExercises from "../components/SearchExercices";
 import { AppDispatch, RootState, workoutAction } from "../store";
 
-// TODO: edit the reps number, sets number, as well as all the timing. Might be possible with a popup.
-
 const NewWorkout = () => {
 	const [isCreating, setIsCreating] = useState(false);
 	const [toFirstPage, setToFirstPage] = React.useState(false);
@@ -59,11 +57,7 @@ const NewWorkout = () => {
 				<>
 					<button onClick={handleSave}>Save the workout</button>
 					<SearchExercises onSetToFirstPage={onSetToFirstPage} />
-					<Exercises
-						isAdding
-						setToFirstPage={toFirstPage}
-						onSetToFirstPage={onSetToFirstPage}
-					/>
+					<Exercises setToFirstPage={toFirstPage} onSetToFirstPage={onSetToFirstPage} />
 				</>
 			)}
 		</>

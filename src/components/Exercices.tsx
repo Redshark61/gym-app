@@ -7,12 +7,11 @@ import { exercisesOptions, fetchData } from "../utils/fetchData";
 import { Exercise } from "../../@types";
 
 interface Props {
-	isAdding?: boolean;
 	setToFirstPage?: boolean;
 	onSetToFirstPage: (value: boolean) => void;
 }
 
-const Exercices = ({ isAdding = false, setToFirstPage = false, onSetToFirstPage }: Props) => {
+const Exercices = ({ setToFirstPage = false, onSetToFirstPage }: Props) => {
 	const dispatch = useDispatch();
 	const exercises = useSelector<RootState, Exercise[]>((state) => state.exercises.exercices);
 	let selectedExercises = useSelector<RootState, Exercise[]>(
@@ -77,7 +76,7 @@ const Exercices = ({ isAdding = false, setToFirstPage = false, onSetToFirstPage 
 				justifyContent="center"
 			>
 				{currentExercises.map((exercise, index) => (
-					<ExerciseCard isAdding key={index} exercise={exercise} />
+					<ExerciseCard key={index} exercise={exercise} />
 				))}
 			</Stack>
 			<Stack mt="100px" alignItems="center">

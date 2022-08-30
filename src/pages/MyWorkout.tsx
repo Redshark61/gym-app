@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Workouts } from "../../@types";
+import { WorkoutItem } from "../components/Workout";
 import { RootState } from "../store";
 
 const MyWorkout = () => {
@@ -12,7 +13,7 @@ const MyWorkout = () => {
 			{workout.length ? (
 				<ul>
 					{workout.map((workout) => (
-						<li key={workout.id}>{workout.name}</li>
+						<WorkoutItem workout={workout} />
 					))}
 				</ul>
 			) : (
