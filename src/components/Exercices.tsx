@@ -3,7 +3,6 @@ import { Pagination, Box, Stack, Typography } from "@mui/material";
 import ExerciseCard from "./ExerciseCard";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, exerciseAction, RootState } from "../store";
-import { exercisesOptions, fetchData } from "../utils/fetchData";
 import { Exercise } from "../../@types";
 import { cacheData } from "../utils/cacheExercises";
 
@@ -36,10 +35,10 @@ const Exercices = ({ setToFirstPage = false, onSetToFirstPage }: Props) => {
 
 	useEffect(() => {
 		(async () => {
-			let exercisesData: Exercise[] = await cacheData(exercises, dispatch);
+			const exercisesData: Exercise[] = await cacheData(exercises, dispatch);
 
 			if (bodyPart !== "all") {
-				let selectedExercises = exercisesData.filter(
+				const selectedExercises = exercisesData.filter(
 					(exercise) => exercise.bodyPart === bodyPart
 				);
 				dispatch(exerciseAction.setCurrentExercises(selectedExercises));

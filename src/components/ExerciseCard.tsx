@@ -12,6 +12,7 @@ interface Props {
 	exercise: Exercise;
 	children?: Exercise;
 }
+let selectedIDs: string[] = [];
 
 const ExerciseCard = ({ exercise, children }: Props) => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -19,15 +20,16 @@ const ExerciseCard = ({ exercise, children }: Props) => {
 	const location = useLocation();
 	const [isAdded, setIsAdded] = useState(false);
 	const [openModal, setOpenModal] = useState(false);
+	console.log(exercise.id in selectedIDs);
+	console.log(exercise.id);
+	console.log(selectedIDs);
+
 	let isCreating = false;
-	console.log(
-		'🚀 ~ file: ExerciseCard.tsx ~ line 26 ~ ExerciseCard ~ location.pathname.includes("new")',
-		location.pathname.includes("new")
-	);
 
 	if (location.pathname.includes("new")) {
 		isCreating = true;
 	}
+
 	const closeModalHandler = () => {
 		setOpenModal(false);
 		document.body.style.overflow = "auto";
@@ -51,7 +53,6 @@ const ExerciseCard = ({ exercise, children }: Props) => {
 			dispatch(exerciseAction.setSelectedExercise(exercise));
 		} else {
 			openModalHandler();
-			console.log("click");
 		}
 	};
 
@@ -64,6 +65,13 @@ const ExerciseCard = ({ exercise, children }: Props) => {
 		e.preventDefault();
 		closeModalHandler();
 		setIsAdded((prev) => !prev);
+
+		if (isAdded) {
+			selectedIDs = selectedIDs.filter((id) => id !== exercise.id);
+		} else {
+			selectedIDs.push(exercise.id);
+		}
+
 		const workout: Workout = {
 			exerciseID: exercise.id,
 			nbReps: reps,
@@ -83,7 +91,9 @@ const ExerciseCard = ({ exercise, children }: Props) => {
 				href={`/exercise/${exercise.id}`}
 				onClick={navigateHandler}
 			>
-				{isCreating && <AddingBadge isAdded={isAdded} />}
+				{isCreating && (
+					<AddingBadge isAdded={isAdded && selectedIDs.includes(exercise.id)} />
+				)}
 				<img src={exercise.gifUrl} alt={exercise.name} loading="lazy" />
 				<Stack direction="row">
 					<Button

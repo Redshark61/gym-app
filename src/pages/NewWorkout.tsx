@@ -14,7 +14,6 @@ const NewWorkout = () => {
 	const currentWorkout = useSelector<RootState, Workouts>(
 		(state) => state.workouts.currentWorkout
 	);
-
 	const onSetToFirstPage = (value: boolean) => {
 		setToFirstPage(value);
 	};
