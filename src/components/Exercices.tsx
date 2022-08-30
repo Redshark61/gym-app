@@ -2,9 +2,10 @@ import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Pagination, Box, Stack, Typography } from "@mui/material";
 import ExerciseCard from "./ExerciseCard";
 import { useDispatch, useSelector } from "react-redux";
-import { exerciseAction, RootState } from "../store";
+import { AppDispatch, exerciseAction, RootState } from "../store";
 import { exercisesOptions, fetchData } from "../utils/fetchData";
 import { Exercise } from "../../@types";
+import { cacheData } from "../utils/cacheExercises";
 
 interface Props {
 	setToFirstPage?: boolean;
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const Exercices = ({ setToFirstPage = false, onSetToFirstPage }: Props) => {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const exercises = useSelector<RootState, Exercise[]>((state) => state.exercises.exercices);
 	let selectedExercises = useSelector<RootState, Exercise[]>(
 		(state) => state.exercises.currentExercises
@@ -35,14 +36,7 @@ const Exercices = ({ setToFirstPage = false, onSetToFirstPage }: Props) => {
 
 	useEffect(() => {
 		(async () => {
-			let exercisesData: Exercise[];
-			if (exercises.length === 0) {
-				const URL = "https://exercisedb.p.rapidapi.com/exercises";
-				exercisesData = await fetchData(URL, exercisesOptions);
-				dispatch(exerciseAction.setExercices(exercisesData));
-			} else {
-				exercisesData = exercises;
-			}
+			let exercisesData: Exercise[] = await cacheData(exercises, dispatch);
 
 			if (bodyPart !== "all") {
 				let selectedExercises = exercisesData.filter(
