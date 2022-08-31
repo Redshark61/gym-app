@@ -1,0 +1,16 @@
+{
+	"extends": ["next/core-web-vitals", "eslint:recommended", "plugin:react/recommended"],
+	"plugins": ["@typescript-eslint"],
+	"rules": {
+		"react/button-has-type": "warn",
+		"react/jsx-no-useless-fragment": "warn",
+		"react-hooks/exhaustive-deps": "error",
+		"react/no-array-index-key": "error",
+		"react/no-unescaped-entities": "off",
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": ["error"]
+	},
+	"globals": {
+		"JSX": true
+	}
+}

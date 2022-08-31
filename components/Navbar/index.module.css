@@ -1,0 +1,9 @@
+.link {
+  text-decoration: none;
+  border-bottom: none;
+  color: #3a1212;
+}
+
+.link-active {
+  border-bottom: 2px solid #ff2526;
+}
